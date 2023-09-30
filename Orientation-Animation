@@ -1,0 +1,32 @@
+-- Isso aqui não é tão utilizado então vou só deixar aqui, pq vai que né..
+
+local leftarm = workspace:WaitForChild("nerd").leftarm
+local TweenService = game:GetService("TweenService")  -- "TweenService" com 'S' maiúscula
+local orientation = Vector3.new(0, -60, -90)
+local tweenInfo = TweenInfo.new(5)
+local initialPosition = Vector3.new(780.029, 131.75, 314.979)
+local initialOrientation = Vector3.new(0, -150, -90)
+
+local tween = TweenService:Create(
+	leftarm,
+	tweenInfo,
+	{
+		CFrame = CFrame.new(731.029, 131.75, 337.979) * CFrame.Angles(math.rad(orientation.X), math.rad(orientation.Y), math.rad(orientation.Z))
+	}
+)
+
+local returnTweenInfo = TweenInfo.new(5)
+local returnTween = TweenService:Create(
+	leftarm,
+	returnTweenInfo,
+	{
+		CFrame = CFrame.new(initialPosition) * CFrame.Angles(math.rad(initialOrientation.X), math.rad(initialOrientation.Y), math.rad(initialOrientation.Z))
+	}
+)
+
+while true do
+	tween:Play()
+	tween.Completed:Wait()
+	returnTween:Play()
+	returnTween.Completed:Wait()
+end
