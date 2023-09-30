@@ -1,0 +1,20 @@
+local TweenService = game:GetService("TweenService")
+local buttons = workspace:WaitForChild("Buttons"):GetChildren()
+
+for _, button in ipairs(buttons) do
+	local partc = button:FindFirstChild("Partc")
+
+	if partc then
+		local originalColor = partc.Color
+		local tween = TweenService:Create(partc, TweenInfo.new(0.7), {Color = Color3.new(0.0627451, 0.952941, 1)})
+
+		partc.Touched:Connect(function()
+			wait(0.1)
+			tween:Play()
+			wait(1)
+			local reverseTween = TweenService:Create(partc, TweenInfo.new(1), {Color = originalColor})
+			reverseTween:Play()
+		end)
+	end
+end
+-- NO CASO AQUI É USADO UMA PASTA QUE CONTÉM OS BOTÕES, POR ISSO ipairs(buttons)
