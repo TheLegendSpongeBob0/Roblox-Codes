@@ -1,0 +1,53 @@
+local shop_button = script.Parent
+local mainframe = script.Parent.Parent.Frame
+local mainframe_size = mainframe.Size
+local mainframe_position = mainframe.Position
+local TweenService = game:GetService("TweenService")
+local button0 = script.Parent.Parent.Frame.ScrollingFrame.PIX
+local button1 = script.Parent.Parent.Frame.ScrollingFrame.PIX1
+local button2 = script.Parent.Parent.Frame.ScrollingFrame.PIX2
+local scroll = script.Parent.Parent.Frame.ScrollingFrame
+local text = script.Parent.Parent.Frame.ScrollingFrame.TextLabel
+
+
+local endProperties1 = {
+	Position = UDim2.new(0.148, 0, 0.068, 0),
+	Size = UDim2.new(0, 376, 0, 522)
+}
+
+local endProperties2 = {
+	Position = mainframe_position,
+	Size = mainframe_size
+}
+
+local tweenInfo = TweenInfo.new(0.5)
+local currentState = "start"
+
+local tween_start = TweenService:Create(mainframe, tweenInfo, endProperties1)
+local tween_end = TweenService:Create(mainframe, tweenInfo, endProperties2)
+
+shop_button.MouseButton1Click:Connect(function()
+	mainframe.Visible = true
+
+	if currentState == "start" then
+		tween_start:Play()
+		tween_start.Completed:Wait()
+		button0.Visible = true
+		button1.Visible = true
+		button2.Visible = true
+		scroll.Visible = true
+		text.Visible = true
+		currentState = "end"
+	else
+		tween_end:Play()
+		button0.Visible = false
+		button1.Visible = false
+		button2.Visible = false
+		scroll.Visible = false
+		text.Visible = false
+		tween_end.Completed:Wait()
+		mainframe.Visible = false
+		currentState = "start"
+	end
+end)
+
