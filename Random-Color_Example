@@ -1,0 +1,11 @@
+local conveyor = workspace:WaitForChild("Convoyor_front")
+local tweenservice = game:GetService("TweenService")
+
+while true do
+	local randomColor = Color3.new(math.random(), math.random(), math.random())
+	local tweenc = tweenservice:Create(conveyor, TweenInfo.new(2), {Color = randomColor})
+	tweenc:Play()
+	wait(1)
+end
+
+-- 	Essa é a melhor maneira de definir a cor aleatoriamente: local randomColor = Color3.new(math.random(), math.random(), math.random())
