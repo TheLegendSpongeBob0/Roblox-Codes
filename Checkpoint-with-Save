@@ -1,0 +1,54 @@
+-- Essa aqui é uma forma um pouco complexa, mas depois de tentar 500mil vezes esse é o melhor resultado que achei.
+
+local DataStoreService = game:GetService("DataStoreService")
+local StageDataStore = DataStoreService:GetDataStore("StageData")
+local checkpoints = game.Workspace.Checkpoints
+
+local function GetSavedStage(ply)
+	
+	local success, savedStage = pcall(function()
+		return StageDataStore:GetAsync(tostring(ply.UserId))
+	end)
+
+	if success then
+		return savedStage or 1
+	else
+		return 1
+	end
+end
+
+local function SaveCurrentStage(ply)
+	local success, _ = pcall(function()
+		StageDataStore:SetAsync(tostring(ply.UserId), ply.leaderstats.Stage.Value)
+	end)
+end
+
+game.Players.PlayerAdded:Connect(function(ply)
+	local leaderstats = Instance.new("Folder")
+	leaderstats.Name = "leaderstats"
+	leaderstats.Parent = ply
+
+	local stage = Instance.new("IntValue")
+	stage.Name = "Stage"
+	stage.Value = GetSavedStage(ply)
+	stage.Parent = leaderstats
+
+	ply.CharacterAdded:Connect(function(char)
+		local hum = char:WaitForChild("Humanoid")
+		wait()
+		char:MoveTo(checkpoints[stage.Value].Position)
+
+		hum.Touched:Connect(function(hit)
+			if hit.Parent == checkpoints then
+				if tonumber(hit.Name) == stage.Value + 1 then
+					stage.Value = stage.Value + 1
+					SaveCurrentStage(ply)
+				end
+			end
+		end)
+	end)
+end)
+
+game.Players.PlayerRemoving:Connect(function(ply)
+	SaveCurrentStage(ply)
+end)
