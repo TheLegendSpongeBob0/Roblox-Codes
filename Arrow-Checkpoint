@@ -1,0 +1,39 @@
+local arrow = script.Parent
+local arrow2 = workspace:WaitForChild("check2").arrow
+local TweenService = game:GetService("TweenService")
+
+local check2 = workspace:WaitForChild("check2").check2.Position
+local up_position = arrow.Position
+local down_position = Vector3.new(52, 12.5, -17.5)
+local final_position_add = Vector3.new(check2.X, check2.Y + 14, check2.Z)
+
+local Uptween = TweenService:Create(arrow, TweenInfo.new(1), {Position = up_position})
+local Downtween = TweenService:Create(arrow, TweenInfo.new(1), {Position = down_position})
+local Finaltween = TweenService:Create(arrow, TweenInfo.new(2), {Position = final_position_add})
+
+local isRunning = true
+
+local function animationUpDown()
+	while isRunning do
+		Downtween:Play()
+		Downtween.Completed:Wait()
+		Uptween:Play()
+		Uptween.Completed:Wait()
+	end
+end
+
+local function stopAnimation()
+	isRunning = false
+end
+
+arrow.Touched:Connect(function(hit)
+	stopAnimation()
+	Finaltween:Play()
+	Finaltween.Completed:Wait()
+	if arrow.Position == final_position_add then
+		arrow:Destroy()
+		arrow2.Transparency = 0
+	end
+end)
+
+animationUpDown()
