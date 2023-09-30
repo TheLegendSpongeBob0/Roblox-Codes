@@ -1,0 +1,22 @@
+local convoyor = workspace:WaitForChild("Convoyor_front")
+local front_button = workspace:WaitForChild("Buttons").Button_2.Partc
+local back_button = workspace:WaitForChild("Buttons").Button_5.Partc
+
+front_button.Touched:Connect(function()
+	convoyor.Velocity = convoyor.CFrame.LookVector * 50
+	convoyor.CanCollide = true
+	convoyor.Beam1.TextureSpeed = -3
+	convoyor.Attachment1.Position = Vector3.new(0.188, 1.681, 239.956)
+	convoyor.Attachment1.Orientation = Vector3.new(90, -89.984, 0)
+	convoyor.Attachment0.Position = Vector3.new(0.187, 1.681, -241.058)
+	convoyor.Attachment0.Orientation = Vector3.new(-0, 0, 89.984)
+end)
+
+back_button.Touched:Connect(function()
+	convoyor.Velocity = convoyor.CFrame.LookVector * -50
+	convoyor.CanCollide = true
+	convoyor.Attachment1.Position = Vector3.new(0.188, 1.681, -239.956)
+	convoyor.Attachment1.Orientation = Vector3.new(-0, 0, 89.984)
+	convoyor.Attachment0.Position = Vector3.new(0.187, 1.681, 241.058)
+	convoyor.Attachment0.Orientation = Vector3.new(90, -89.984, 0)
+end)
