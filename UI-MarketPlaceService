@@ -1,0 +1,10 @@
+local pix_button = script.Parent
+local MarketPlaceService = game:GetService("MarketplaceService")
+
+pix_button.MouseButton1Click:Connect(function()
+	MarketPlaceService:PromptProductPurchase(game.Players.LocalPlayer, 1638373088)
+end)
+
+-- Métodos não tanto convencionais:
+Enum.ProductPurchaseDecision.PurchaseGranted
+Enum.ProductPurchaseDecision.NotProcessedYet
