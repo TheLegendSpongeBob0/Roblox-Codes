@@ -1,0 +1,20 @@
+local P0 = workspace.P0.Position
+local P1 = workspace.P1.Position
+local P2 = workspace.P2.Position
+
+local function Quadratic(t)
+	return P0:Lerp(P1, t), P1:Lerp(P2, t)
+end
+
+local function Build()
+	for t = 0, 1, 1/50 do
+		local newpart = Instance.new('Part')
+		newpart.Anchored = true
+		newpart.Size = Vector3.new(2, 2, 2)
+		local p0, p1 = Quadratic(t)
+		newpart.Position = p0:Lerp(p1, t)
+		newpart.Parent = workspace
+	end
+end
+
+Build()
