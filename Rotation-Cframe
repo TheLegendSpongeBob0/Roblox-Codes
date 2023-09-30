@@ -1,0 +1,8 @@
+local tube = workspace:WaitForChild("Rainbow Obby Part")
+
+while true do
+	tube.CFrame = tube.CFrame * CFrame.fromEulerAnglesXYZ(0.05, 0, 0)
+	wait()
+end
+
+-- Melhor forma de rotacionar qualquer coisa que seja 3D e tenha a propiedade CFrame.
