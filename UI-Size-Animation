@@ -1,0 +1,23 @@
+local image = script.Parent
+local TS = game:GetService("TweenService")
+
+local endSize = UDim2.new(0, 100, 0, 98)
+local startSize = UDim2.new(0, 76, 0, 74)
+
+local function growth_size()
+	local tween = TS:Create(image, TweenInfo.new(0.5), {Size = endSize})
+	tween:Play()
+end
+
+local function minimize_size()
+	local tween = TS:Create(image, TweenInfo.new(0.5), {Size = startSize})
+	tween:Play()
+end
+
+image.MouseEnter:Connect(function()
+	growth_size()
+end)
+
+image.MouseLeave:Connect(function()
+	minimize_size()
+end)
